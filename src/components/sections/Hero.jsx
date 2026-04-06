@@ -1,168 +1,319 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, BarChart3, Calendar, Globe2, Search, Sparkles } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, ArrowUpRight, BarChart3, Calendar, Globe2, Search, Sparkles, TrendingUp } from 'lucide-react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import FloatingIcon from '../common/FloatingIcon';
-import { MotionItem, MotionSection } from '../common/MotionSection';
 
+/* ─── Easing presets ────────────────────────────────────────────── */
+const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
+const EASE_IN_OUT  = [0.76, 0, 0.24, 1];
+
+/* ─── Stagger container ─────────────────────────────────────────── */
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.11, delayChildren: 0.08 } },
+};
+const fadeUp = {
+  hidden: { opacity: 0, y: 28, filter: 'blur(4px)' },
+  show:   { opacity: 1, y: 0,  filter: 'blur(0px)',
+    transition: { duration: 0.75, ease: EASE_OUT_EXPO } },
+};
+
+/* ─── Marquee ticker ─────────────────────────────────────────────── */
+const TICKER_ITEMS = [
+  'Web Development', 'SEO Strategy', 'Online Advertising',
+  'Booking Systems', 'Conversion Funnels', 'Brand Identity',
+];
+
+function Ticker() {
+  const items = [...TICKER_ITEMS, ...TICKER_ITEMS];
+  return (
+    <div className="relative mt-8 sm:mt-10 overflow-hidden" aria-hidden>
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 sm:w-16 bg-gradient-to-r from-[#faf8f5] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 sm:w-16 bg-gradient-to-l from-[#faf8f5] to-transparent" />
+      <motion.div
+        className="flex gap-2 sm:gap-3"
+        animate={{ x: ['0%', '-50%'] }}
+        transition={{ duration: 28, ease: 'linear', repeat: Infinity }}
+      >
+        {items.map((item, i) => (
+          <span
+            key={i}
+            className="flex-shrink-0 rounded-full border border-stone-200 bg-white/80 px-3 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-[13px] font-medium tracking-tight text-stone-600 shadow-sm backdrop-blur"
+          >
+            {item}
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ─── Metric pill ────────────────────────────────────────────────── */
+function MetricPill({ value, label, delay }) {
+  return (
+    <motion.div
+      variants={fadeUp}
+      transition={{ delay }}
+      className="group flex flex-col gap-0.5 rounded-2xl border border-stone-100 bg-white px-5 py-4 shadow-[0_2px_16px_rgba(0,0,0,0.06)] transition-shadow duration-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.1)]"
+    >
+      <span className="font-display text-[2rem] font-black leading-none tracking-[-0.05em] text-stone-900">
+        {value}
+      </span>
+      <span className="text-[13px] text-stone-500">{label}</span>
+    </motion.div>
+  );
+}
+
+/* ─── Hero ───────────────────────────────────────────────────────── */
 export default function Hero() {
-  const servicePills = ['Web Development', 'SEO Strategy', 'Online Advertising', 'Booking Systems'];
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const cardY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+
   const metrics = [
-    { value: '3.4x', label: 'more qualified leads' },
-    { value: '42%', label: 'organic traffic lift' },
-    { value: '14d', label: 'average launch sprint' },
+    { value: '3.4×', label: 'more qualified leads' },
+    { value: '42%',  label: 'organic traffic lift'  },
+    { value: '14d',  label: 'average launch sprint'  },
   ];
 
+  const bars = [32, 56, 44, 70, 64, 92, 118];
+
   return (
-    <section className="relative overflow-hidden pb-24 pt-14 sm:pb-28 lg:pb-32 lg:pt-20">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,#faf5ff_0%,#f8f2ff_42%,#f3e8ff_100%)]" />
-      <div className="absolute left-[-8%] top-20 -z-10 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
-      <div className="absolute right-[-6%] top-16 -z-10 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-[radial-gradient(circle_at_bottom,rgba(124,58,237,0.12),transparent_60%)]" />
+    <section
+      ref={heroRef}
+      className="relative overflow-hidden bg-[#faf8f5] pb-20 pt-12 sm:pb-32 md:pb-40 lg:pt-24 lg:pb-48"
+    >
+      {/* ── Noise texture overlay ── */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
+      />
+      {/* ── Orb blurs ── */}
+      <div className="absolute -top-32 left-1/4 -z-10 h-80 w-80 rounded-full bg-violet-200/40 blur-[100px] md:h-96 md:w-96 md:blur-[120px] lg:h-[480px] lg:w-[480px]" />
+      <div className="absolute right-0 top-10 -z-10 h-64 w-64 rounded-full bg-amber-100/60 blur-[80px] md:h-72 md:w-72 md:blur-[100px] lg:h-96 lg:w-96" />
 
-      <div className="container-x">
-        <MotionSection className="grid items-center gap-14 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
-          <div className="relative z-10">
-            <MotionItem>
-              <span className="tag gap-2">
-                <Sparkles size={12} />
-                Calm Growth Systems For Modern Brands
+      <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 xl:px-10">
+        {/* ── Main grid ── */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid items-start gap-8 sm:gap-12 md:gap-16 lg:grid-cols-[1fr_minmax(380px,480px)] lg:gap-8 xl:gap-12 2xl:gap-16"
+        >
+          {/* ── LEFT COLUMN ── */}
+          <div>
+            {/* Badge */}
+            <motion.div variants={fadeUp}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3.5 py-1.5 text-[12px] font-semibold uppercase tracking-[0.18em] text-violet-600">
+                <Sparkles size={11} className="fill-violet-400 text-violet-400" />
+                Calm Growth Systems
               </span>
-            </MotionItem>
+            </motion.div>
 
-            <MotionItem>
-              <h1 className="section-title mt-6 max-w-4xl text-[2.9rem] sm:text-6xl lg:text-[4.75rem]">
-                Premium digital experiences that feel effortless and convert with clarity.
-              </h1>
-            </MotionItem>
+            {/* Headline */}
+            <motion.h1
+              variants={fadeUp}
+              className="mt-7 max-w-3xl font-display text-[2.5rem] font-black leading-[1.04] tracking-[-0.04em] text-stone-900 sm:text-[3.5rem] md:text-[4rem] lg:text-5xl xl:text-6xl 2xl:text-7xl"
+            >
+              Digital experiences that{' '}
+              <em className="not-italic text-violet-600">convert</em>{' '}
+              with clarity.
+            </motion.h1>
 
-            <MotionItem>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
-                Kodawave designs high-end websites and growth systems for teams that need web development, SEO, advertising, and online booking in one calm, polished ecosystem.
-              </p>
-            </MotionItem>
+            {/* Sub */}
+            <motion.p
+              variants={fadeUp}
+              className="mt-6 max-w-xl text-[17px] leading-[1.75] text-stone-500"
+            >
+              Kodawave designs high-end websites and growth systems for teams that need web
+              development, SEO, advertising, and online booking — in one polished ecosystem.
+            </motion.p>
 
-            <MotionItem className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
-                <Link to="/contact" className="btn-primary px-7 py-4 text-base">
-                  Get Free Consultation <ArrowRight size={18} />
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
-                <Link to="/services" className="btn-secondary px-7 py-4 text-base">
-                  Explore Services <ArrowUpRight size={18} />
-                </Link>
-              </motion.div>
-            </MotionItem>
-
-            <MotionItem className="mt-8 flex flex-wrap gap-3">
-              {servicePills.map((pill) => (
-                <span
-                  key={pill}
-                  className="rounded-3xl border border-primary/10 bg-white/75 px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-[0_10px_30px_rgba(124,58,237,0.08)] backdrop-blur-xl"
+            {/* CTAs */}
+            <motion.div variants={fadeUp} className="mt-9 flex flex-wrap gap-3">
+              <motion.div whileHover={{ scale: 1.025, y: -1 }} whileTap={{ scale: 0.975 }}>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-stone-900 px-7 py-3.5 text-[14px] font-semibold text-white shadow-[0_2px_20px_rgba(0,0,0,0.2)] transition-shadow hover:shadow-[0_4px_28px_rgba(0,0,0,0.28)]"
                 >
-                  {pill}
-                </span>
-              ))}
-            </MotionItem>
+                  Get Free Consultation <ArrowRight size={15} />
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.025, y: -1 }} whileTap={{ scale: 0.975 }}>
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-7 py-3.5 text-[14px] font-semibold text-stone-700 shadow-sm transition-colors hover:border-stone-300"
+                >
+                  Explore Services <ArrowUpRight size={15} />
+                </Link>
+              </motion.div>
+            </motion.div>
 
-            <MotionItem className="mt-10 grid gap-4 sm:grid-cols-3">
-              {metrics.map((item) => (
-                <div key={item.label} className="lift-card panel px-5 py-5 text-left">
-                  <p className="text-3xl font-extrabold tracking-[-0.04em] text-dark">{item.value}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{item.label}</p>
-                </div>
+            {/* Ticker */}
+            <motion.div variants={fadeUp}>
+              <Ticker />
+            </motion.div>
+
+            {/* Metrics row */}
+            <motion.div
+              variants={container}
+              className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:max-w-lg"
+            >
+              {metrics.map((m, i) => (
+                <MetricPill key={m.label} {...m} delay={0.55 + i * 0.07} />
               ))}
-            </MotionItem>
+            </motion.div>
           </div>
 
-          <MotionItem className="relative mx-auto w-full max-w-2xl">
-            <FloatingIcon icon={Globe2} label="Website Launch" className="-left-2 top-10 hidden sm:flex lg:-left-10" delay={0.2} />
-            <FloatingIcon icon={Search} label="SEO Lift" className="right-2 top-4 hidden sm:flex lg:-right-8" delay={0.35} />
-            <FloatingIcon icon={Calendar} label="Booking Flow" className="bottom-14 left-4 hidden sm:flex lg:-left-6" delay={0.5} />
-
+          {/* ── RIGHT COLUMN ── */}
+          <motion.div
+            style={{ y: cardY }}
+            initial={{ opacity: 0, y: 36, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.9, ease: EASE_OUT_EXPO, delay: 0.3 }}
+            className="relative mx-auto w-full max-w-lg lg:sticky lg:top-6 lg:mx-0"
+          >
+            {/* Floating tag top-right */}
             <motion.div
-              initial={{ opacity: 0, y: 24, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-              className="glass-panel relative overflow-hidden p-5 sm:p-6 lg:p-8"
+              initial={{ opacity: 0, scale: 0.8, x: 20 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ delay: 0.95, duration: 0.55, ease: EASE_OUT_EXPO }}
+              className="absolute -right-3 -top-4 z-20 flex items-center gap-1.5 rounded-full bg-emerald-500 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white shadow-lg"
             >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.85),rgba(255,255,255,0.45)_38%,rgba(243,232,255,0.55)_100%)]" />
-              <div className="absolute right-8 top-8 h-28 w-28 rounded-full bg-primary/12 blur-3xl" />
-              <div className="absolute bottom-10 left-6 h-28 w-28 rounded-full bg-accent/12 blur-3xl" />
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+              </span>
+              Live
+            </motion.div>
 
-              <div className="relative z-10">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            {/* Main card */}
+            <div className="overflow-hidden rounded-[28px] border border-stone-100 bg-white shadow-[0_20px_80px_rgba(0,0,0,0.10)]">
+              {/* Card header */}
+              <div className="border-b border-stone-50 px-6 py-5">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-stone-400">
+                  Growth Snapshot
+                </p>
+                <h2 className="mt-2 font-display text-[1.45rem] font-black leading-snug tracking-tight text-stone-900">
+                  From traffic to booked conversations.
+                </h2>
+              </div>
+
+              {/* Service trio */}
+              <div className="grid grid-cols-3 divide-x divide-stone-50 border-b border-stone-50">
+                {[
+                  { icon: Globe2,    title: 'Build',  sub: 'Premium front-end polish' },
+                  { icon: Search,    title: 'Rank',   sub: 'SEO-ready architecture'    },
+                  { icon: Calendar,  title: 'Book',   sub: 'Connected booking flows'   },
+                ].map(({ icon: Icon, title, sub }, i) => (
+                  <motion.div
+                    key={title}
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.55 + i * 0.09, duration: 0.5, ease: EASE_OUT_EXPO }}
+                    className="group flex flex-col items-center gap-2 px-3 py-5 text-center transition-colors hover:bg-stone-50/70"
+                  >
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-100 to-indigo-100 transition-transform duration-300 group-hover:scale-105">
+                      <Icon size={17} className="text-violet-600" />
+                    </div>
+                    <span className="text-[13px] font-bold text-stone-800">{title}</span>
+                    <span className="text-[11px] leading-4 text-stone-400">{sub}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Chart block */}
+              <div className="px-6 py-5">
+                <div className="flex items-start justify-between">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary/55">Growth Snapshot</p>
-                    <h2 className="mt-3 max-w-md text-2xl font-extrabold tracking-[-0.05em] text-dark sm:text-3xl">
-                      Build a calmer path from traffic to booked conversations.
-                    </h2>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-stone-400">
+                      Performance Trend
+                    </p>
+                    <p className="mt-1.5 font-display text-[1.65rem] font-black tracking-[-0.04em] text-stone-900">
+                      +186%
+                    </p>
+                    <p className="text-[12px] text-stone-400">organic sessions</p>
                   </div>
-                  <div className="self-start rounded-3xl bg-primary px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-glow">
-                    Live
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-600 shadow-[0_4px_16px_rgba(124,58,237,0.35)]">
+                    <TrendingUp size={17} className="text-white" />
                   </div>
                 </div>
 
-                <div className="mt-7 grid gap-4 sm:grid-cols-3">
-                  {[
-                    { icon: Globe2, title: 'Build', copy: 'Responsive sites with premium front-end polish' },
-                    { icon: Search, title: 'Rank', copy: 'Search-ready architecture and content direction' },
-                    { icon: Calendar, title: 'Manage', copy: 'Booking systems connected to your workflow' },
-                  ].map(({ icon: Icon, title, copy }, index) => (
+                {/* Bars */}
+                <div className="mt-5 flex items-end gap-1.5">
+                  {bars.map((h, i) => (
                     <motion.div
-                      key={title}
-                      initial={{ opacity: 0, y: 18 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.2 }}
-                      transition={{ duration: 0.45, delay: 0.08 * index }}
-                      className="lift-card rounded-3xl border border-white/70 bg-white/80 p-4 shadow-[0_12px_36px_rgba(124,58,237,0.08)]"
+                      key={i}
+                      className="flex-1 overflow-hidden rounded-t-full"
+                      style={{ backgroundColor: 'rgb(245 245 244)' }}
                     >
-                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 via-secondary/15 to-accent/15">
-                        <Icon size={20} className="text-primary" />
-                      </div>
-                      <h3 className="mt-4 text-lg font-bold tracking-[-0.03em] text-dark">{title}</h3>
-                      <p className="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
+                      <motion.div
+                        className="w-full rounded-t-full bg-gradient-to-t from-violet-600 to-indigo-400"
+                        initial={{ height: 0 }}
+                        animate={{ height: h * 0.68 }}
+                        transition={{ delay: 0.7 + i * 0.07, duration: 0.7, ease: EASE_OUT_EXPO }}
+                      />
                     </motion.div>
                   ))}
                 </div>
 
-                <div className="mt-6 rounded-3xl border border-primary/10 bg-white/85 p-5 shadow-[0_14px_40px_rgba(124,58,237,0.08)]">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/55">Performance Trend</p>
-                      <p className="mt-3 text-2xl font-extrabold tracking-[-0.04em] text-dark">+186% organic sessions</p>
-                    </div>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-white shadow-glow">
-                      <BarChart3 size={20} />
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex items-end gap-3">
-                    {[32, 56, 44, 70, 64, 92, 118].map((height, index) => (
-                      <motion.div
-                        key={height}
-                        initial={{ opacity: 0, y: 18 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.5, delay: 0.05 * index }}
-                        className="w-full rounded-full bg-primary/8 p-1"
-                      >
-                        <motion.div
-                          initial={{ height: 0 }}
-                          whileInView={{ height }}
-                          viewport={{ once: true, amount: 0.2 }}
-                          transition={{ duration: 0.7, delay: 0.08 * index, ease: [0.22, 1, 0.36, 1] }}
-                          className="w-full rounded-full bg-gradient-to-t from-primary via-secondary to-accent"
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
+                {/* X-axis months */}
+                <div className="mt-2 flex gap-1.5 text-[10px] text-stone-300">
+                  {['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'].map((m) => (
+                    <span key={m} className="flex-1 text-center">{m}</span>
+                  ))}
                 </div>
               </div>
+
+              {/* Footer */}
+              <div className="border-t border-stone-50 px-6 py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex -space-x-2">
+                    {['#e0e7ff', '#ede9fe', '#ddd6fe'].map((c, i) => (
+                      <div
+                        key={i}
+                        className="h-8 w-8 rounded-full border-2 border-white shadow-sm"
+                        style={{ backgroundColor: c }}
+                      />
+                    ))}
+                  </div>
+                  <motion.div whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
+                    <Link
+                      to="/contact"
+                      className="flex items-center gap-1.5 text-[13px] font-semibold text-violet-600 hover:text-violet-700"
+                    >
+                      Start your sprint <ArrowRight size={14} />
+                    </Link>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating accent cards */}
+            <motion.div
+              initial={{ opacity: 0, x: -20, y: 10 }}
+              animate={{ opacity: 1, x: 0,   y: 0  }}
+              transition={{ delay: 1.05, duration: 0.6, ease: EASE_OUT_EXPO }}
+              className="absolute -bottom-4 -left-4 hidden rounded-2xl border border-stone-100 bg-white px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.09)] md:flex md:flex-col md:gap-0.5 lg:-bottom-6 lg:-left-6"
+            >
+              <span className="text-[11px] text-stone-400">Avg. Leads / Month</span>
+              <span className="font-display text-xl font-black tracking-tight text-stone-900">↑ 340%</span>
             </motion.div>
-          </MotionItem>
-        </MotionSection>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20, y: -10 }}
+              animate={{ opacity: 1, x: 0,  y: 0   }}
+              transition={{ delay: 1.15, duration: 0.6, ease: EASE_OUT_EXPO }}
+              className="absolute -right-4 top-1/3 hidden rounded-2xl border border-stone-100 bg-white px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.09)] md:flex md:flex-col md:gap-0.5 lg:-right-6"
+            >
+              <span className="text-[11px] text-stone-400">Launch Sprint</span>
+              <span className="font-display text-xl font-black tracking-tight text-stone-900">14 days</span>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
