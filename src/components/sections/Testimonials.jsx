@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
+import { Quote, Sparkles, Star } from 'lucide-react';
+import { MotionItem, MotionSection } from '../common/MotionSection';
 
 export default function Testimonials({
   kicker = 'Testimonials',
@@ -31,52 +32,62 @@ export default function Testimonials({
   ];
 
   return (
-    <section className="py-24">
+    <section className="relative py-24 sm:py-28">
+      <div className="absolute inset-x-0 top-16 -z-10 h-72 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.08),transparent_55%)]" />
+
       <div className="container-x">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <span className="tag mb-5">{kicker}</span>
-          <h2 className="section-title">{title}</h2>
-          <p className="section-subtitle text-center">
-            {subtitle}
-          </p>
-        </motion.div>
+        <MotionSection>
+          <MotionItem className="mx-auto mb-16 max-w-3xl text-center">
+            <span className="tag mb-5 gap-2">
+              <Sparkles size={12} />
+              {kicker}
+            </span>
+            <h2 className="section-title">{title}</h2>
+            <p className="section-subtitle text-center">
+              {subtitle}
+            </p>
+          </MotionItem>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {testimonials.map((testimonial, index) => (
-            <motion.article
-              key={testimonial.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="panel lift-card p-8 text-left"
-            >
-              <div className="mb-6 flex gap-1">
-                {Array(testimonial.rating).fill(0).map((_, i) => (
-                  <Star key={i} size={18} className="fill-accent text-accent" />
-                ))}
-              </div>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {testimonials.map((testimonial, index) => (
+              <MotionItem key={testimonial.name}>
+                <motion.article
+                  whileHover={{ y: -8 }}
+                  transition={{ duration: 0.3 }}
+                  className="panel lift-card relative h-full overflow-hidden p-8 text-left"
+                >
+                  <div className="absolute right-6 top-6 flex h-12 w-12 items-center justify-center rounded-3xl bg-gradient-to-br from-primary/15 via-secondary/12 to-accent/12">
+                    <Quote size={18} className="text-primary" />
+                  </div>
 
-              <p className="mb-8 text-lg leading-8 text-slate-700">{testimonial.content}</p>
+                  <div className="mb-6 flex gap-1">
+                    {Array(testimonial.rating).fill(0).map((_, i) => (
+                      <Star key={i} size={18} className="fill-accent text-accent" />
+                    ))}
+                  </div>
 
-              <div className="flex items-center gap-4">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="h-12 w-12 rounded-full object-cover"
-                />
-                <div>
-                  <h4 className="font-bold text-dark">{testimonial.name}</h4>
-                  <p className="text-sm text-slate-600">{testimonial.role}</p>
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </div>
+                  <p className="mb-8 pr-10 text-lg leading-8 text-slate-700">
+                    {testimonial.content}
+                  </p>
+
+                  <div className="mt-auto flex items-center gap-4">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="h-14 w-14 rounded-full border-2 border-white object-cover shadow-[0_12px_28px_rgba(124,58,237,0.12)]"
+                    />
+                    <div>
+                      <h4 className="font-extrabold tracking-[-0.03em] text-dark">{testimonial.name}</h4>
+                      <p className="text-sm text-slate-600">{testimonial.role}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 h-1 w-full rounded-full bg-gradient-to-r from-primary via-secondary to-accent opacity-70" />
+                </motion.article>
+              </MotionItem>
+            ))}
+          </div>
+        </MotionSection>
       </div>
     </section>
   );
