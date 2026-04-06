@@ -4,18 +4,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#18222d',
-        secondary: '#7f8f6a',
-        dark: '#10161d',
-        light: '#f4efe7',
-        accent: '#c79b63',
+        primary: '#7c3aed',
+        secondary: '#6b46c1',
+        accent: '#ec4899',
+        dark: '#1f1637',
+        light: '#faf5ff',
+        surface: '#f8f2ff',
+        lavender: '#f3e8ff',
       },
       fontFamily: {
-        sans: ['Manrope', 'sans-serif'],
-        display: ['Fraunces', 'serif'],
+        sans: ['Plus Jakarta Sans', 'Manrope', 'sans-serif'],
+        display: ['Plus Jakarta Sans', 'Manrope', 'sans-serif'],
       },
       boxShadow: {
-        soft: '0 20px 60px rgba(16, 22, 29, 0.08)',
+        soft: '0 18px 60px rgba(124, 58, 237, 0.12)',
+        glow: '0 18px 40px rgba(124, 58, 237, 0.18)',
       },
     },
   },
