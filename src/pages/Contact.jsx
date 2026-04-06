@@ -33,7 +33,7 @@ export default function Contact() {
 
   return (
     <div>
-      <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
+      <section className="py-20">
         <div className="container-x">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -41,6 +41,7 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
+            <span className="tag mb-5">Contact</span>
             <h1 className="section-title text-5xl mb-6">Get In Touch</h1>
             <p className="section-subtitle text-center text-lg">
               Ready to start your digital transformation? Let's talk about your project
@@ -204,23 +205,54 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50">
+      <section className="py-20">
         <div className="container-x">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="bg-white rounded-xl overflow-hidden shadow-lg h-96"
+            className="panel overflow-hidden p-8 md:p-10"
           >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.1234567890!2d-74.0060!3d40.7128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQyJzU1LjIiTiA3NMKwMDAnMjEuNiJX!5e0!3m2!1sen!2sus!4v1234567890"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div className="text-left">
+                <span className="tag mb-5">Office Location</span>
+                <h2 className="text-3xl font-display text-dark">Remote-friendly team, available for focused consultation calls.</h2>
+                <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
+                  We collaborate with clients across time zones and keep communication tight through scheduled strategy calls, async updates, and launch check-ins.
+                </p>
+
+                <div className="mt-8 space-y-4">
+                  {[
+                    '123 Innovation Street, Tech City, TC 12345',
+                    'Monday to Friday, 9:00 AM to 6:00 PM',
+                    'Average first response time: 2 to 4 business hours',
+                  ].map((item) => (
+                    <div key={item} className="rounded-2xl bg-light/80 px-4 py-4 text-slate-700">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[28px] border border-black/5 bg-light/70 p-5">
+                <div className="relative min-h-[320px] overflow-hidden rounded-[24px] border border-primary/10 bg-[radial-gradient(circle_at_top,rgba(199,155,99,0.22),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.95),rgba(244,239,231,0.95))] p-6">
+                  <div className="absolute left-10 top-14 h-24 w-24 rounded-full border border-primary/10 bg-white/70" />
+                  <div className="absolute right-12 top-12 h-20 w-20 rounded-full border border-primary/10 bg-white/60" />
+                  <div className="absolute bottom-12 left-20 h-16 w-16 rounded-full border border-primary/10 bg-white/70" />
+                  <div className="absolute inset-x-12 top-1/2 h-px -translate-y-1/2 bg-primary/10" />
+                  <div className="absolute left-1/2 top-12 h-[75%] w-px -translate-x-1/2 bg-primary/10" />
+
+                  <div className="absolute left-[52%] top-[46%] -translate-x-1/2 -translate-y-1/2">
+                    <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white shadow-soft">
+                      <MapPin size={26} />
+                      <span className="absolute -bottom-8 rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary shadow-sm">
+                        HQ
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>

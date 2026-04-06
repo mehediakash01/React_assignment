@@ -4,26 +4,43 @@ import { ArrowRight } from 'lucide-react';
 
 export default function ContactCTA() {
   return (
-    <section className="py-20 bg-gradient-to-r from-primary to-secondary">
+    <section className="py-24">
       <div className="container-x">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center text-white"
+          className="relative overflow-hidden rounded-[32px] bg-dark px-6 py-14 text-center text-white sm:px-10 lg:px-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Transform Your Business?
-          </h2>
-          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Get your free consultation today and discover how Kodawave can accelerate your growth
-          </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all duration-300"
-          >
-            Schedule Your Consultation <ArrowRight size={24} />
-          </Link>
+          <div className="absolute left-0 top-0 h-56 w-56 rounded-full bg-secondary/20 blur-3xl" />
+          <div className="absolute bottom-0 right-0 h-48 w-48 rounded-full bg-accent/25 blur-3xl" />
+
+          <div className="relative">
+            <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">
+              Start a Project
+            </span>
+            <h2 className="mt-6 text-4xl font-display md:text-5xl">
+              Ready to turn the site into your strongest sales asset?
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/75">
+              Book a consultation and we&apos;ll map the highest-impact improvements across messaging, design, SEO, and conversion flow.
+            </p>
+
+            <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-primary transition duration-300 hover:-translate-y-0.5 hover:bg-light"
+              >
+                Schedule Your Consultation <ArrowRight size={20} />
+              </Link>
+              <Link
+                to="/services"
+                className="inline-flex items-center justify-center rounded-full border border-white/15 px-8 py-4 text-base font-bold text-white/85 transition duration-300 hover:bg-white/10"
+              >
+                Review Services
+              </Link>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

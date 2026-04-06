@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Code2, Search, Zap, Calendar, CheckCircle } from 'lucide-react';
 import Pricing from '../components/sections/Pricing';
 import ContactCTA from '../components/sections/ContactCTA';
-import { Link } from 'react-router-dom';
 
 export default function Services() {
   const services = [
@@ -62,7 +61,7 @@ export default function Services() {
 
   return (
     <div>
-      <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
+      <section className="py-20">
         <div className="container-x">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -70,6 +69,7 @@ export default function Services() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
+            <span className="tag mb-5">Services</span>
             <h1 className="section-title text-5xl">Our Services</h1>
             <p className="section-subtitle text-center text-lg">
               Comprehensive solutions designed to drive your digital growth and business success
