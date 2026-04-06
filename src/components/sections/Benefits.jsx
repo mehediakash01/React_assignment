@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Target, TrendingUp, Users, Zap } from 'lucide-react';
+import { Sparkles, Target, TrendingUp, Users, Zap } from 'lucide-react';
+import { MotionItem, MotionSection } from '../common/MotionSection';
 
 export default function Benefits() {
   const benefits = [
@@ -26,53 +27,55 @@ export default function Benefits() {
   ];
 
   return (
-    <section className="py-24">
+    <section className="py-24 sm:py-28">
       <div className="container-x">
-        <div className="panel overflow-hidden">
-          <div className="grid grid-cols-1 gap-12 p-8 md:p-10 lg:grid-cols-[0.95fr_1.05fr] lg:p-14">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <span className="tag mb-5">Why Kodawave</span>
-              <h2 className="section-title max-w-xl">A small team with a clear process and a high standard for detail.</h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-                We pair sharp thinking with steady execution, so the site feels premium, easy to use, and ready to support the next stage of growth.
-              </p>
+        <MotionSection>
+          <MotionItem>
+            <div className="panel overflow-hidden">
+              <div className="grid grid-cols-1 gap-12 p-8 md:p-10 lg:grid-cols-[0.95fr_1.05fr] lg:p-14">
+                <div>
+                  <span className="tag mb-5 gap-2">
+                    <Sparkles size={12} />
+                    Why Kodawave
+                  </span>
+                  <h2 className="section-title max-w-xl">A smaller team with sharper thinking and a higher standard for digital detail.</h2>
+                  <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+                    We pair strategy with design discipline and practical execution, so the final experience feels premium, calm, and ready to support growth.
+                  </p>
 
-              <div className="mt-8 rounded-[28px] bg-light/80 p-6">
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary/50">
-                  What clients get
-                </p>
-                <p className="mt-4 text-lg leading-8 text-slate-700">
-                  Strategy that is easy to understand, design that feels premium, and execution that helps teams launch without chaos.
-                </p>
+                  <div className="mt-8 rounded-[32px] border border-primary/10 bg-white/75 p-6">
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary/50">
+                      What clients get
+                    </p>
+                    <p className="mt-4 text-lg leading-8 text-slate-700">
+                      Clear positioning, premium visual polish, and a delivery process that keeps momentum steady without unnecessary chaos.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  {benefits.map((benefit) => {
+                    const Icon = benefit.icon;
+                    return (
+                      <MotionItem key={benefit.title}>
+                        <motion.div
+                          whileHover={{ y: -8 }}
+                          className="lift-card rounded-[32px] border border-primary/10 bg-white/80 p-7 text-left shadow-soft"
+                        >
+                          <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-primary/15 via-secondary/12 to-accent/12">
+                            <Icon className="text-primary" size={24} />
+                          </div>
+                          <h3 className="mt-6 text-xl font-extrabold tracking-[-0.03em] text-dark">{benefit.title}</h3>
+                          <p className="mt-3 text-sm leading-7 text-slate-600">{benefit.description}</p>
+                        </motion.div>
+                      </MotionItem>
+                    );
+                  })}
+                </div>
               </div>
-            </motion.div>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {benefits.map((benefit, index) => {
-                const Icon = benefit.icon;
-                return (
-                  <motion.div
-                    key={benefit.title}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="lift-card rounded-[28px] border border-black/5 bg-white p-7 text-left"
-                  >
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/8">
-                      <Icon className="text-primary" size={28} />
-                    </div>
-                    <h3 className="mt-6 text-xl font-semibold text-dark">{benefit.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">{benefit.description}</p>
-                  </motion.div>
-                );
-              })}
             </div>
-          </div>
-        </div>
+          </MotionItem>
+        </MotionSection>
       </div>
     </section>
   );
