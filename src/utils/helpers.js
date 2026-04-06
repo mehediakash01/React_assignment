@@ -55,7 +55,7 @@ export function classNames(...classes) {
 }
 
 export function isProduction() {
-  return process.env.VITE_ENVIRONMENT === 'production';
+  return import.meta.env.MODE === 'production';
 }
 
 export function getEnvironmentVariable(key, defaultValue = '') {
