@@ -24,7 +24,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60">Digital Agency</p>
-                    <h3 className="text-2xl font-extrabold tracking-[-0.05em] text-white">Kodawave</h3>
+                    <h3 className="text-2xl font-extrabold tracking-[-0.05em] text-white">LuminaStudio</h3>
                   </div>
                 </div>
 
@@ -82,7 +82,7 @@ export default function Footer() {
                   <div className="mt-5 grid gap-4 sm:grid-cols-3">
                     {[
                       { icon: Phone, value: '+1 (555) 123-4567' },
-                      { icon: Mail, value: 'hello@kodawave.com' },
+                      { icon: Mail, value: 'hello@luminastudio.com' },
                       { icon: MapPin, value: '123 Innovation Street, Tech City, TC 12345' },
                     ].map(({ icon: Icon, value }) => (
                       <div key={value} className="rounded-3xl border border-white/10 bg-white/5 px-4 py-4">
@@ -100,7 +100,7 @@ export default function Footer() {
 
           <MotionItem className="mt-10 border-t border-white/10 pt-6">
             <div className="flex flex-col gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-              <p className="text-sm text-white/55">&copy; 2026 Kodawave. All rights reserved.</p>
+              <p className="text-sm text-white/55">&copy; 2026 LuminaStudio. All rights reserved.</p>
               <p className="text-sm text-white/45">Built with React, Tailwind CSS, and Framer Motion.</p>
             </div>
           </MotionItem>

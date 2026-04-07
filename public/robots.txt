@@ -4,7 +4,7 @@ Disallow: /admin/
 Disallow: /.git/
 Disallow: /node_modules/
 
-Sitemap: https://kodawave.com/sitemap.xml
+Sitemap: https://luminastudio.com/sitemap.xml
 
 User-agent: GPTBot
 Disallow: /

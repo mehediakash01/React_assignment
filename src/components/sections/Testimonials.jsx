@@ -19,7 +19,7 @@ const testimonials = [
     name: 'Sarah Johnson',
     role: 'CEO, TechFlow',
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-    content: 'Kodawave made our portfolio feel premium, focused, and surprisingly easy to maintain. Traffic increased 300% in three months.',
+    content: 'LuminaStudio made our portfolio feel premium, focused, and surprisingly easy to maintain. Traffic increased 300% in three months.',
     rating: 5,
     accent: '#ede9fe',
     accentText: '#7c3aed',
@@ -37,7 +37,7 @@ const testimonials = [
     name: 'Emma Rodriguez',
     role: 'Marketing Director, InnovateLabs',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop',
-    content: 'Setup was seamless and every section already looked like thoughtful client work. Clients keep complimenting the site — Kodawave quietly does the selling.',
+    content: 'Setup was seamless and every section already looked like thoughtful client work. Clients keep complimenting the site — LuminaStudio quietly does the selling.',
     rating: 5,
     accent: '#dcfce7',
     accentText: '#16a34a',
@@ -130,7 +130,7 @@ function TestimonialCard({ t, index }) {
 export default function Testimonials({
   kicker = 'Testimonials',
   title = 'What clients say after launch',
-  subtitle = 'Teams come to Kodawave for sharper design, clearer messaging, and a launch process that feels thoughtfully managed.',
+  subtitle = 'Teams come to LuminaStudio for sharper design, clearer messaging, and a launch process that feels thoughtfully managed.',
 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.12 });

@@ -75,7 +75,7 @@ export default function ClientLogos() {
                 className="mt-5 font-display text-[2.2rem] font-black leading-[1.08] tracking-[-0.04em] text-stone-900 sm:text-[2.8rem]"
               >
                 Brands that trust{' '}
-                <em className="not-italic text-violet-600">Kodawave</em>.
+                <em className="not-italic text-violet-600">LuminaStudio</em>.
               </motion.h2>
             </div>
 

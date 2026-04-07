@@ -1,4 +1,4 @@
-# Kodawave - Digital Growth Solutions Website
+# LuminaStudio - Digital Growth Solutions Website
 
 A full-stack React website built with Vite, Tailwind CSS, and modern web technologies. This professional service-oriented website showcases digital solutions including web development, SEO optimization, online advertising, and booking management systems.
 
@@ -218,7 +218,7 @@ MIT License - feel free to use this project for personal or commercial purposes
 ## Contact
 
 For inquiries about this project:
-- Email: hello@kodawave.com
+- Email: hello@luminastudio.com
 - Phone: +1 (555) 123-4567
 - Location: 123 Innovation Street, Tech City, TC 12345
 

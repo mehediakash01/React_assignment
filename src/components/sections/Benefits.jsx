@@ -113,7 +113,7 @@ export default function Benefits() {
               <motion.div variants={fadeUp}>
                 <span className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-600">
                   <Sparkles size={10} className="fill-violet-400 text-violet-400" />
-                  Why Kodawave
+                  Why LuminaStudio
                 </span>
               </motion.div>
 

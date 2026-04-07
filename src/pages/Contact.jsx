@@ -37,7 +37,7 @@ export default function Contact() {
 
   const contactInfo = [
     { icon: Phone, title: 'Phone', value: '+1 (555) 123-4567' },
-    { icon: Mail, title: 'Email', value: 'hello@kodawave.com' },
+    { icon: Mail, title: 'Email', value: 'hello@luminastudio.com' },
     { icon: MapPin, title: 'Office Location', value: '123 Innovation Street, Tech City, TC 12345' },
     { icon: Clock, title: 'Business Hours', value: 'Monday - Friday: 9:00 AM - 6:00 PM' },
   ];

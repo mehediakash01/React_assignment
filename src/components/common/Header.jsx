@@ -29,7 +29,7 @@ export default function Header() {
             </div>
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/60">Digital Agency</p>
-              <p className="text-lg font-extrabold tracking-[-0.04em] text-dark">Kodawave</p>
+              <p className="text-lg font-extrabold tracking-[-0.04em] text-dark">LuminaStudio</p>
             </div>
           </NavLink>
 

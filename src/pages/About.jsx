@@ -92,7 +92,7 @@ export default function About() {
               <MotionItem className="mx-auto max-w-4xl text-center">
                 <span className="tag mb-5 gap-2">
                   <Sparkles size={12} />
-                  About Kodawave
+                  About LuminaStudio
                 </span>
                 <h1 className="section-title text-4xl sm:text-6xl lg:text-[4.3rem]">
                   Independent digital experts creating
