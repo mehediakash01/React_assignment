@@ -4,6 +4,8 @@ import { useState } from 'react';
 import FloatingIcon from '../components/common/FloatingIcon';
 import { MotionItem, MotionSection } from '../components/common/MotionSection';
 
+const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -42,10 +44,17 @@ export default function Contact() {
 
   return (
     <div>
-      <section className="relative overflow-hidden py-20 sm:py-24">
-        <div className="absolute inset-x-0 top-0 -z-10 h-full bg-[linear-gradient(180deg,#faf5ff_0%,#f7efff_100%)]" />
-        <div className="absolute left-[-8%] top-14 -z-10 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
-        <div className="absolute right-[-6%] top-10 -z-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
+      <section className="relative overflow-hidden bg-[#faf8f5] pb-20 pt-16 sm:pb-24 sm:pt-20">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.022]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+          }}
+        />
+        <div className="absolute -left-16 top-16 -z-10 h-80 w-80 rounded-full bg-violet-100/55 blur-[120px]" />
+        <div className="absolute right-0 top-10 -z-10 h-64 w-64 rounded-full bg-fuchsia-100/45 blur-[110px]" />
+        <div className="absolute bottom-4 left-1/2 -z-10 h-52 w-[620px] -translate-x-1/2 rounded-full bg-blue-100/40 blur-[100px]" />
 
         <div className="container-x">
           <MotionSection className="relative">
@@ -57,7 +66,7 @@ export default function Contact() {
                 <Sparkles size={12} />
                 Contact
               </span>
-              <h1 className="section-title text-5xl sm:text-6xl lg:text-[4.5rem]">
+              <h1 className="section-title text-4xl sm:text-6xl lg:text-[4.3rem]">
                 Let&apos;s turn your next digital move into something clear, premium, and effective.
               </h1>
               <p className="section-subtitle mt-6 text-center text-lg">
@@ -68,7 +77,8 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-28">
+      <section className="relative overflow-hidden bg-[#faf8f5] py-24 sm:py-28">
+        <div className="absolute -right-24 top-20 -z-10 h-72 w-72 rounded-full bg-violet-100/40 blur-[120px]" />
         <div className="container-x">
           <MotionSection className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
             <MotionItem>
@@ -88,7 +98,8 @@ export default function Contact() {
                     return (
                       <motion.div
                         key={item.title}
-                        whileHover={{ x: 4 }}
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
                         className="flex items-start gap-4 rounded-3xl border border-primary/10 bg-white/75 px-5 py-4"
                       >
                         <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-3xl bg-gradient-to-br from-primary/15 via-secondary/12 to-accent/12">
@@ -201,6 +212,7 @@ export default function Contact() {
                       type="submit"
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
+                      transition={{ duration: 0.3, ease: EASE_OUT_EXPO }}
                       className="btn-primary w-full py-4 text-base"
                     >
                       Send Message <Send size={18} />
@@ -213,7 +225,8 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-28">
+      <section className="relative overflow-hidden bg-[#faf8f5] py-24 sm:py-28">
+        <div className="absolute left-1/2 top-0 -z-10 h-56 w-[620px] -translate-x-1/2 rounded-full bg-violet-100/45 blur-[100px]" />
         <div className="container-x">
           <MotionSection>
             <MotionItem>
@@ -234,7 +247,12 @@ export default function Contact() {
                         'Monday to Friday, 9:00 AM to 6:00 PM',
                         'Average first response time: 2 to 4 business hours',
                       ].map((item) => (
-                        <motion.div key={item} whileHover={{ x: 4 }} className="rounded-3xl border border-primary/10 bg-white/75 px-5 py-4 text-slate-700">
+                        <motion.div
+                          key={item}
+                          whileHover={{ x: 5 }}
+                          transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
+                          className="rounded-3xl border border-primary/10 bg-white/75 px-5 py-4 text-slate-700"
+                        >
                           {item}
                         </motion.div>
                       ))}

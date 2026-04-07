@@ -1,10 +1,28 @@
 import { motion } from 'framer-motion';
-import { Award, BadgeCheck, Sparkles, Target, TrendingUp, Users } from 'lucide-react';
+import { ArrowRight, Award, BadgeCheck, Sparkles, Target, TrendingUp, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import FloatingIcon from '../components/common/FloatingIcon';
 import { MotionItem, MotionSection } from '../components/common/MotionSection';
 import ContactCTA from '../components/sections/ContactCTA';
 import Testimonials from '../components/sections/Testimonials';
 import { teamMembers, stats } from '../data/content';
+
+const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30, filter: 'blur(5px)' },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 0.75, ease: EASE_OUT_EXPO },
+  },
+};
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
+};
 
 export default function About() {
   const recognitions = [
@@ -53,33 +71,68 @@ export default function About() {
 
   return (
     <div>
-      <section className="relative overflow-hidden py-20 sm:py-24 lg:py-28">
-        <div className="absolute inset-x-0 top-0 -z-10 h-full bg-[linear-gradient(180deg,#faf5ff_0%,#f7efff_100%)]" />
-        <div className="absolute left-[-8%] top-14 -z-10 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
-        <div className="absolute right-[-6%] top-10 -z-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
+      <section className="relative overflow-hidden bg-[#faf8f5] pb-20 pt-16 sm:pb-24 sm:pt-20 lg:pb-28">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.022]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+          }}
+        />
+        <div className="absolute -left-16 top-16 -z-10 h-80 w-80 rounded-full bg-violet-100/55 blur-[120px]" />
+        <div className="absolute right-0 top-10 -z-10 h-64 w-64 rounded-full bg-fuchsia-100/45 blur-[110px]" />
+        <div className="absolute bottom-4 left-1/2 -z-10 h-52 w-[620px] -translate-x-1/2 rounded-full bg-blue-100/40 blur-[100px]" />
 
         <div className="container-x">
-          <MotionSection className="relative">
+          <MotionSection className="relative" as={motion.div}>
             <FloatingIcon icon={Target} label="Strategy First" className="left-0 top-16 hidden xl:flex" delay={0.2} />
             <FloatingIcon icon={Sparkles} label="Premium Execution" className="right-0 top-20 hidden xl:flex" delay={0.35} />
 
-            <MotionItem className="mx-auto max-w-4xl text-center">
-              <span className="tag mb-5 gap-2">
-                <Sparkles size={12} />
-                About Kodawave
-              </span>
-              <h1 className="section-title text-5xl sm:text-6xl lg:text-[4.5rem]">
-                Independent digital experts building brands with clarity, calm, and measurable ambition.
-              </h1>
-              <p className="section-subtitle mt-6 text-center text-lg">
-                We partner with growth-minded teams that need premium websites, sharper messaging, and stronger conversion systems without the usual friction.
-              </p>
-            </MotionItem>
+            <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+              <MotionItem className="mx-auto max-w-4xl text-center">
+                <span className="tag mb-5 gap-2">
+                  <Sparkles size={12} />
+                  About Kodawave
+                </span>
+                <h1 className="section-title text-4xl sm:text-6xl lg:text-[4.3rem]">
+                  Independent digital experts creating
+                  {' '}
+                  <span className="bg-gradient-to-r from-violet-600 via-secondary to-primary bg-clip-text text-transparent">
+                    premium growth experiences.
+                  </span>
+                </h1>
+                <p className="section-subtitle mt-6 text-center text-lg">
+                  We partner with growth-minded teams that need premium websites, sharper messaging, and stronger conversion systems without the usual friction.
+                </p>
+              </MotionItem>
+
+              <MotionItem className="mx-auto mt-10 max-w-5xl">
+                <div className="grid gap-3 rounded-[28px] border border-primary/10 bg-white/75 p-4 shadow-soft backdrop-blur-2xl sm:grid-cols-3 sm:p-5">
+                  {[
+                    { value: '98%', label: 'Renewal intent' },
+                    { value: '90d', label: 'Impact window' },
+                    { value: '250+', label: 'Delivered projects' },
+                  ].map((metric) => (
+                    <div key={metric.label} className="rounded-3xl border border-primary/10 bg-white px-5 py-5 text-center sm:px-6">
+                      <p className="font-display text-3xl font-black tracking-[-0.05em] text-dark sm:text-[2.2rem]">
+                        {metric.value}
+                      </p>
+                      <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary/55">
+                        {metric.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </MotionItem>
+            </motion.div>
           </MotionSection>
         </div>
       </section>
 
-      <section className="py-24 sm:py-28">
+      <section className="relative overflow-hidden bg-[#faf8f5] py-24 sm:py-28">
+        <div className="absolute -right-24 top-28 -z-10 h-72 w-72 rounded-full bg-violet-100/40 blur-[120px]" />
+        <div className="absolute -left-24 bottom-16 -z-10 h-72 w-72 rounded-full bg-blue-100/35 blur-[110px]" />
+
         <div className="container-x">
           <MotionSection className="mb-20 grid items-center gap-10 lg:grid-cols-[1fr_0.95fr]">
             <MotionItem>
@@ -102,7 +155,8 @@ export default function About() {
                 ].map((item) => (
                   <motion.div
                     key={item}
-                    whileHover={{ x: 4 }}
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
                     className="flex items-start gap-3 rounded-3xl border border-primary/10 bg-white/75 px-5 py-4"
                   >
                     <span className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-2xl bg-lavender">
@@ -143,7 +197,8 @@ export default function About() {
                     ].map((step, index) => (
                       <motion.div
                         key={step.title}
-                        whileHover={{ x: 4 }}
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
                         className="rounded-3xl border border-primary/10 bg-white/85 p-5"
                       >
                         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/45">0{index + 1}</p>
@@ -152,6 +207,13 @@ export default function About() {
                       </motion.div>
                     ))}
                   </div>
+
+                  <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.22 }} className="mt-5">
+                    <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-bold text-primary">
+                      Start your strategy session
+                      <ArrowRight size={15} />
+                    </Link>
+                  </motion.div>
                 </div>
               </motion.div>
             </MotionItem>
@@ -160,7 +222,11 @@ export default function About() {
           <MotionSection className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             {stats.map((stat) => (
               <MotionItem key={stat.label}>
-                <motion.div whileHover={{ y: -6 }} className="panel px-6 py-8 text-center">
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.01 }}
+                  transition={{ duration: 0.3, ease: EASE_OUT_EXPO }}
+                  className="panel px-6 py-8 text-center"
+                >
                   <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/50">Impact</p>
                   <h3 className="mt-4 text-5xl font-extrabold tracking-[-0.06em] text-dark">{stat.value}</h3>
                   <p className="mt-3 font-semibold text-slate-600">{stat.label}</p>
@@ -171,7 +237,8 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-28">
+      <section className="relative overflow-hidden bg-[#faf8f5] py-24 sm:py-28">
+        <div className="absolute left-1/2 top-0 -z-10 h-52 w-[620px] -translate-x-1/2 rounded-full bg-violet-100/45 blur-[100px]" />
         <div className="container-x">
           <MotionSection>
             <MotionItem className="mx-auto mb-14 max-w-3xl text-center">
@@ -188,7 +255,11 @@ export default function About() {
 
                 return (
                   <MotionItem key={item.title}>
-                    <motion.div whileHover={{ y: -8 }} className="panel p-8 text-left">
+                    <motion.div
+                      whileHover={{ y: -8, scale: 1.01 }}
+                      transition={{ duration: 0.32, ease: EASE_OUT_EXPO }}
+                      className="panel p-8 text-left"
+                    >
                       <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-primary/15 via-secondary/12 to-accent/12">
                         <Icon className="text-primary" size={24} />
                       </div>
@@ -203,7 +274,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-28">
+      <section className="relative overflow-hidden bg-[#faf8f5] py-24 sm:py-28">
         <div className="container-x">
           <MotionSection>
             <MotionItem className="mx-auto mb-14 max-w-3xl text-center">
@@ -220,7 +291,11 @@ export default function About() {
 
                 return (
                   <MotionItem key={item.title}>
-                    <motion.div whileHover={{ y: -8 }} className="panel h-full p-8 text-left">
+                    <motion.div
+                      whileHover={{ y: -8, scale: 1.01 }}
+                      transition={{ duration: 0.32, ease: EASE_OUT_EXPO }}
+                      className="panel h-full p-8 text-left"
+                    >
                       <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-primary/15 via-secondary/12 to-accent/12">
                         <Icon className="text-primary" size={24} />
                       </div>
@@ -236,7 +311,8 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-28">
+      <section className="relative overflow-hidden bg-[#faf8f5] py-24 sm:py-28">
+        <div className="absolute -right-20 top-24 -z-10 h-64 w-64 rounded-full bg-fuchsia-100/45 blur-[110px]" />
         <div className="container-x">
           <MotionSection>
             <MotionItem className="mx-auto mb-14 max-w-3xl text-center">
@@ -250,7 +326,11 @@ export default function About() {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
               {teamMembers.map((member, index) => (
                 <MotionItem key={member.name}>
-                  <motion.div whileHover={{ y: -8 }} className="panel h-full p-7 text-center">
+                  <motion.div
+                    whileHover={{ y: -8, scale: 1.01 }}
+                    transition={{ duration: 0.32, ease: EASE_OUT_EXPO }}
+                    className="panel h-full p-7 text-center"
+                  >
                     <div className="relative mx-auto h-32 w-32">
                       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/20 blur-xl" />
                       <img

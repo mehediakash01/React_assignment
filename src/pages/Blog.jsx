@@ -4,13 +4,22 @@ import FloatingIcon from '../components/common/FloatingIcon';
 import { MotionItem, MotionSection } from '../components/common/MotionSection';
 import { blogPosts } from '../data/content';
 
+const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
+
 export default function Blog() {
   return (
     <div>
-      <section className="relative overflow-hidden py-20 sm:py-24">
-        <div className="absolute inset-x-0 top-0 -z-10 h-full bg-[linear-gradient(180deg,#faf5ff_0%,#f7efff_100%)]" />
-        <div className="absolute left-[-8%] top-14 -z-10 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
-        <div className="absolute right-[-6%] top-10 -z-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
+      <section className="relative overflow-hidden bg-[#faf8f5] pb-20 pt-16 sm:pb-24 sm:pt-20">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.022]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+          }}
+        />
+        <div className="absolute -left-16 top-16 -z-10 h-80 w-80 rounded-full bg-violet-100/55 blur-[120px]" />
+        <div className="absolute right-0 top-10 -z-10 h-64 w-64 rounded-full bg-fuchsia-100/45 blur-[110px]" />
+        <div className="absolute bottom-4 left-1/2 -z-10 h-52 w-[620px] -translate-x-1/2 rounded-full bg-blue-100/40 blur-[100px]" />
 
         <div className="container-x">
           <MotionSection className="relative">
@@ -22,8 +31,12 @@ export default function Blog() {
                 <Sparkles size={12} />
                 Blog
               </span>
-              <h1 className="section-title text-5xl sm:text-6xl lg:text-[4.5rem]">
-                Insights and practical ideas for modern digital growth.
+              <h1 className="section-title text-4xl sm:text-6xl lg:text-[4.3rem]">
+                Insights that make
+                {' '}
+                <span className="bg-gradient-to-r from-violet-600 via-secondary to-primary bg-clip-text text-transparent">
+                  digital growth calmer and clearer.
+                </span>
               </h1>
               <p className="section-subtitle mt-6 text-center text-lg">
                 Explore strategy, design, performance, and marketing ideas created to help teams make better digital decisions with more confidence.
@@ -33,15 +46,16 @@ export default function Blog() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-28">
+      <section className="relative overflow-hidden bg-[#faf8f5] py-24 sm:py-28">
+        <div className="absolute -right-24 top-24 -z-10 h-72 w-72 rounded-full bg-violet-100/40 blur-[120px]" />
         <div className="container-x">
           <MotionSection>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
               {blogPosts.map((post) => (
                 <MotionItem key={post.id}>
                   <motion.article
-                    whileHover={{ y: -8 }}
-                    transition={{ duration: 0.3 }}
+                    whileHover={{ y: -8, scale: 1.008 }}
+                    transition={{ duration: 0.32, ease: EASE_OUT_EXPO }}
                     className="panel lift-card overflow-hidden"
                   >
                     <div className="relative h-56 overflow-hidden">
@@ -71,7 +85,7 @@ export default function Blog() {
                         {post.description}
                       </p>
 
-                      <button className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-primary transition-all hover:gap-3">
+                      <button className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-primary transition-all hover:translate-x-1">
                         Read More <ArrowRight size={18} />
                       </button>
                     </div>
@@ -81,7 +95,12 @@ export default function Blog() {
             </div>
 
             <MotionItem className="mt-16 text-center">
-              <motion.button whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }} className="btn-primary px-8 py-4 text-base">
+              <motion.button
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.3, ease: EASE_OUT_EXPO }}
+                className="btn-primary px-8 py-4 text-base"
+              >
                 Load More Articles
               </motion.button>
             </MotionItem>
@@ -89,7 +108,8 @@ export default function Blog() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-28">
+      <section className="relative overflow-hidden bg-[#faf8f5] py-24 sm:py-28">
+        <div className="absolute left-1/2 top-0 -z-10 h-56 w-[620px] -translate-x-1/2 rounded-full bg-violet-100/45 blur-[100px]" />
         <div className="container-x">
           <MotionSection>
             <MotionItem>
